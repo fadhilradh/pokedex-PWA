@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import Homepage from "./pages/Homepage";
+import { useState, useEffect } from "react";
+import GlobalStyle from "./Globals.style";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const [allPokemons, setAllPokemons] = useState([]);
+   const [loadMorePokemons, setLoadMorePokemons] = useState(
+      "https://pokeapi.co/api/v2/pokemon?limit=20"
+   );
+   // const [pokemonDetails, setPokemonDetails] = useState([]);
+
+   function getPokemonDetails(result) {
+      result.forEach(async (pokemon) => {
+         const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+         );
+         const data = await response.json();
+
+         setAllPokemons((currentList) => [...currentList, data]);
+      });
+      console.log(allPokemons);
+   }
+
+   async function fetchPokemons() {
+      const response = await fetch(loadMorePokemons);
+      const data = await response.json();
+      console.log(data);
+      setLoadMorePokemons(data.next);
+      getPokemonDetails(data.results);
+   }
+
+   useEffect(() => {
+      fetchPokemons();
+   }, []);
+
+   return (
+      <div className="App">
+         <GlobalStyle />
+         <Homepage allPokemons={allPokemons} />
+      </div>
+   );
 }
 
 export default App;
