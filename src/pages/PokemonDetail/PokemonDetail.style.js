@@ -49,4 +49,10 @@ export const Detail = styled.div`
    background-color: #373e47;
    height: 50vh;
    border-radius: 2rem;
+   padding: 1rem;
+   color: #adbac7;
+`;
+
+export const DetailItem = styled.p`
+   font-size: 0.8rem;
 `;

@@ -12,10 +12,9 @@ const Homepage = ({ allPokemons, fetchPokemons }) => {
       <Container>
          <PageTitle>Black Pokedex</PageTitle>
          <CardList>
-            {allPokemons.map((pokemon, index) => (
-               <Link to={`/pokemon/${pokemon.name}`}>
+            {allPokemons.map((pokemon) => (
+               <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
                   <PokeCard
-                     key={pokemon.id}
                      name={pokemon.name}
                      id={pokemon.id}
                      image={pokemon.sprites.other.dream_world.front_default}

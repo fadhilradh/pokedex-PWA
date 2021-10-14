@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
    Container,
    Header,
    Preview,
    Detail,
+   DetailItem,
    DetailPage,
    PokemonImage,
    PokemonID,
    PokemonName,
 } from "./PokemonDetail.style";
-import { Link } from "react-router-dom";
 
 const PokemonDetail = ({ match }) => {
    const [pokemonDetail, setPokemonDetail] = useState({});
+
    async function getPokemonDetails() {
       const response = await fetch(
          `https://pokeapi.co/api/v2/pokemon/${match.params.name}`
@@ -27,9 +29,9 @@ const PokemonDetail = ({ match }) => {
       <Container>
          <DetailPage>
             <Header>
-               <Link to={"/"}>
+               <a href="/">
                   <p>Back</p>
-               </Link>
+               </a>
             </Header>
             <Preview>
                <PokemonID>#00{pokemonDetail?.id}</PokemonID>
@@ -42,7 +44,15 @@ const PokemonDetail = ({ match }) => {
                />
             </Preview>
             <Detail>
-               <TabTitle />
+               <p style={{ marginBottom: "1rem" }}>About</p>
+               <DetailItem>Height : {pokemonDetail.height}</DetailItem>
+               <DetailItem>Weight : {pokemonDetail.weight}</DetailItem>
+               <DetailItem>
+                  Abilities :{" "}
+                  {pokemonDetail.abilities.map((ability, index) => (
+                     <span>{(index ? ", " : "") + ability.ability.name}</span>
+                  ))}
+               </DetailItem>
             </Detail>
          </DetailPage>
       </Container>
