@@ -6,6 +6,8 @@ import {
    Detail,
    DetailPage,
    PokemonImage,
+   PokemonID,
+   PokemonName,
 } from "./PokemonDetail.style";
 import { Link } from "react-router-dom";
 
@@ -17,10 +19,6 @@ const PokemonDetail = ({ match }) => {
       );
       const data = await response.json();
       setPokemonDetail(data);
-      console.log(
-         "🚀 ~ file: index.jsx ~ line 13 ~ PokemonDetail ~ pokemonDetail",
-         pokemonDetail
-      );
    }
    useEffect(() => {
       getPokemonDetails();
@@ -34,12 +32,18 @@ const PokemonDetail = ({ match }) => {
                </Link>
             </Header>
             <Preview>
+               <PokemonID>#00{pokemonDetail?.id}</PokemonID>
+               <PokemonName>{pokemonDetail?.name}</PokemonName>
                <PokemonImage
-                  src={pokemonDetail?.sprites?.front_default}
+                  src={
+                     pokemonDetail?.sprites?.other?.dream_world?.front_default
+                  }
                   alt="pokemon"
                />
             </Preview>
-            <Detail></Detail>
+            <Detail>
+               <TabTitle />
+            </Detail>
          </DetailPage>
       </Container>
    );
