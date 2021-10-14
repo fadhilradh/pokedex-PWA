@@ -22,7 +22,7 @@ export const CardList = styled.div`
    grid-row-gap: 1rem;
    grid-template-columns: auto auto;
 
-   @media only screen and (max-width: 500px) {
+   @media only screen and (max-width: 450px) {
       grid-template-columns: auto;
       grid-gap: 10px 10px;
    }

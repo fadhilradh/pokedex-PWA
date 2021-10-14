@@ -3,11 +3,6 @@ import PokeCard from "../../components/PokeCard";
 import { Container, PageTitle, CardList } from "./Homepage.style";
 
 const Homepage = ({ allPokemons, fetchPokemons }) => {
-   console.log(
-      "🚀 ~ file: index.jsx ~ line 6 ~ Homepage ~ allPokemons",
-      allPokemons
-   );
-
    return (
       <Container>
          <PageTitle>Black Pokedex</PageTitle>
