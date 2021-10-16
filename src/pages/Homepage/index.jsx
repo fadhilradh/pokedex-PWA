@@ -8,7 +8,7 @@ const Homepage = ({ allPokemons, totalPokemon, isLoading }) => {
       <PageTitle>Black Pokedex {totalPokemon > 0 ? `(${totalPokemon})` : ""}</PageTitle>
       <CardList>
         {allPokemons.map((pokemon) => (
-          <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
+          <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
             <PokeCard
               name={pokemon.name}
               id={pokemon.id}

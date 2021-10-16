@@ -15,7 +15,6 @@ function App() {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
       const data = await response.json();
       setAllPokemons((currentList) => [...currentList, data]);
-      console.log("🚀 ~ file: App.js ~ line 9 ~ App ~ allPokemons", allPokemons);
     });
   }
 
