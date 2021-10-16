@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import PokeCard from "../../components/PokeCard";
 import { Container, PageTitle, CardList } from "./Homepage.style";
 
-const Homepage = ({ allPokemons, fetchPokemons }) => {
+const Homepage = ({ allPokemons, totalPokemon, isLoading }) => {
    return (
       <Container>
-         <PageTitle>Black Pokedex</PageTitle>
+         <PageTitle>
+            Black Pokedex {totalPokemon > 0 ? `(${totalPokemon})` : ""}
+         </PageTitle>
          <CardList>
             {allPokemons.map((pokemon) => (
                <Link to={`/pokemon/${pokemon.name}`} key={pokemon.id}>
@@ -18,7 +20,7 @@ const Homepage = ({ allPokemons, fetchPokemons }) => {
                </Link>
             ))}
          </CardList>
-         <button onClick={() => fetchPokemons()}>Load More</button>
+         {isLoading ? <h3>Gathering more pokemons ...</h3> : ""}
       </Container>
    );
 };
