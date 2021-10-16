@@ -77,11 +77,16 @@ const PokemonDetail = ({ match }) => {
             </TabPanel>
 
             <TabPanel>
-              <ProgressBar completed={60} labelAlignment="outside" isLabelVisible={true} />
+              {pokemonDetail?.stats?.map((stat) => (
+                <>
+                  <p>{stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1)}</p>
+                  <ProgressBar completed={stat.base_stat} labelAlignment="outside" isLabelVisible={true} />
+                </>
+              ))}
             </TabPanel>
 
             <TabPanel>
-              <p>{evolutionData?.chain}</p>
+              <p> {evolutionData?.chain?.evolves_to[0].species?.name}</p>
             </TabPanel>
           </Tabs>
         </Detail>

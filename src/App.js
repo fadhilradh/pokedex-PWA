@@ -15,6 +15,7 @@ function App() {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
       const data = await response.json();
       setAllPokemons((currentList) => [...currentList, data]);
+      setAllPokemons((currentList) => currentList.sort((a, b) => a.id - b.id));
     });
   }
 
