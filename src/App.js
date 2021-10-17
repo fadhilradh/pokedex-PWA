@@ -48,7 +48,7 @@ const App = () => {
           <Route
             path="/"
             exact
-            render={(props) => (
+            render={() => (
               <Homepage
                 allPokemons={allPokemons}
                 fetchPokemons={fetchPokemons}

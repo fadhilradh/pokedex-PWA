@@ -15,6 +15,7 @@ const PokeStatsTab = ({ pokemonDetail }) => {
             bgColor="#3182CE"
             height="0.5rem"
             ariaValuemax={500}
+            maxCompleted={200}
           />
         </div>
       ))}
