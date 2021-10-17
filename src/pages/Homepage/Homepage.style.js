@@ -12,26 +12,20 @@ export const Container = styled.div`
 export const PageTitle = styled.header`
   font-size: 2.5rem;
   text-align: center;
-  /* color: #ff0000; */
 
   @media only screen and (max-width: 450px) {
     font-size: 2rem;
   }
 `;
 
-export const CardList = styled.div`
+export const CardList = styled.main`
   padding: 16px 24px;
   display: grid;
-  grid-column-gap: 2.5rem;
+  grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   grid-template-columns: auto auto auto;
 
   @media only screen and (max-width: 750px) {
     grid-template-columns: auto auto;
-  }
-
-  @media only screen and (max-width: 450px) {
-    grid-template-columns: auto;
-    grid-gap: 10px 10px;
   }
 `;

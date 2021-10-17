@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import handlePokemonType from "../../styles/pokemonCardColor";
 
+export const Root = styled.article`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+
+  @media only screen and (max-width: 450px) {
+    min-width: 100%;
+  }
+`;
+
 export const Container = styled.div`
   width: 100%;
   border-radius: 1.25rem;

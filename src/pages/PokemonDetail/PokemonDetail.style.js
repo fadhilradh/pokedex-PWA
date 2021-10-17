@@ -9,7 +9,7 @@ export const Container = styled.div`
   background-color: #eaeaea;
 `;
 
-export const DetailPage = styled.main`
+export const DetailPage = styled.div`
   max-width: 576px;
   width: 100%;
   background: ${({ pokemonType }) => handlePokemonType(pokemonType)};
@@ -17,20 +17,22 @@ export const DetailPage = styled.main`
   flex-direction: column;
 `;
 
-export const Header = styled.header`
-  width: 100%;
+export const Header = styled.nav`
   text-align: left;
   padding: 1rem;
 `;
 
-export const Preview = styled.div`
+export const Preview = styled.main`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0 1rem;
 `;
 
 export const PokemonImage = styled.img`
   margin: 0 auto;
+  z-index: 100;
+  height: 100%;
+  max-width: 100%;
 `;
 
 export const PokemonID = styled.p`
@@ -45,7 +47,8 @@ export const PokemonName = styled.p`
   font-size: 2rem;
 `;
 
-export const Detail = styled.div`
+export const Detail = styled.article`
+  margin-top: -1.9rem;
   flex-grow: 1;
   font-size: 14px;
   background-color: white;

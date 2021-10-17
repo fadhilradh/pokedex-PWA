@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { PokeAboutTab, PokeStatsTab, PokeTypeTag } from "../../components";
@@ -50,6 +52,22 @@ const PokemonDetail = ({ match }) => {
     getEvolutionData();
   }, []);
 
+  // gsap.registerPlugin(ScrollTrigger);
+  // const ref = useRef(null);
+  // useEffect(() => {
+  //   const element = ref.current;
+  //   gsap.from(element.querySelector(".pokemon-name"), {
+  //     scale: 0,
+  //     ease: "none",
+  //     scrollTrigger: {
+  //       trigger: element.querySelector(".pokemon-name"),
+  //       scrub: true,
+  //       start: "top bottom",
+  //       end: "top top",
+  //     },
+  //   });
+  // }, []);
+
   const pokemonPrimaryType = pokemonDetail?.types?.[0]?.type.name;
   const pokemonTypesArray = pokemonDetail?.types?.map((type) => type?.type?.name);
 
@@ -65,7 +83,7 @@ const PokemonDetail = ({ match }) => {
         </Header>
         <Preview>
           <PokemonID>#00{pokemonDetail?.id}</PokemonID>
-          <PokemonName>{pokemonDetail?.name}</PokemonName>
+          <PokemonName className="pokemon-name">{pokemonDetail?.name}</PokemonName>
           <div style={{ display: "flex", gap: "0.5rem" }}>
             {pokemonTypesArray?.map((type, index) => (
               <PokeTypeTag key={index} type={type} />
