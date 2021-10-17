@@ -47,6 +47,11 @@ export const PokemonName = styled.p`
   font-size: 2rem;
 `;
 
+export const TypesWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
 export const Detail = styled.article`
   margin-top: -1.9rem;
   flex-grow: 1;

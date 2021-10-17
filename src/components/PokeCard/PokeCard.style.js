@@ -8,7 +8,7 @@ export const Root = styled.article`
   min-width: 200px;
 
   @media only screen and (max-width: 450px) {
-    min-width: 100%;
+    min-width: auto;
   }
 `;
 
@@ -16,7 +16,7 @@ export const Container = styled.div`
   width: 100%;
   border-radius: 1.25rem;
   background-color: ${({ pokemonType }) => handlePokemonType(pokemonType)};
-  min-height: 260px;
+  min-height: 230px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -36,6 +36,10 @@ export const PokemonImage = styled.img`
   max-height: 150px;
   margin: 0 auto;
   object-fit: cover;
+
+  @media only screen and (max-width: 450px) {
+    width: auto;
+  }
 `;
 
 export const DetailWrapper = styled.div`
