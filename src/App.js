@@ -8,7 +8,7 @@ function App() {
   const [allPokemons, setAllPokemons] = useState([]);
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadMorePokemons, setLoadMorePokemons] = useState("https://pokeapi.co/api/v2/pokemon?limit=20");
+  const [loadMorePokemons, setLoadMorePokemons] = useState("https://pokeapi.co/api/v2/pokemon?limit=21");
 
   async function getPokemonDetails(result) {
     result.forEach(async (pokemon) => {
@@ -63,7 +63,7 @@ function App() {
               />
             )}
           />
-          <Route path="/pokemon/:name" exact component={PokemonDetail} />
+          <Route path="/pokemon/:id" exact component={PokemonDetail} />
         </Switch>
       </div>
     </Router>

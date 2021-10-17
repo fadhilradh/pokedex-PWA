@@ -55,6 +55,7 @@ export const Detail = styled.div`
   color: #adbac7;
 `;
 
-export const DetailItem = styled.p`
-  font-size: 0.8rem;
+export const Subtitle = styled.p`
+  font-weight: 600;
+  margin-top: 2.2rem;
 `;
