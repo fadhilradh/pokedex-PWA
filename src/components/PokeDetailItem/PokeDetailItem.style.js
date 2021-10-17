@@ -7,9 +7,7 @@ export const DetailWrapper = styled.div`
 `;
 
 export const Property = styled.dt`
-  font-size: 1rem;
+  color: #718096;
 `;
 
-export const Value = styled.dd`
-  font-size: 1rem;
-`;
+export const Value = styled.dd``;

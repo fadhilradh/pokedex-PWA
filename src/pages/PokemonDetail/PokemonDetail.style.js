@@ -1,22 +1,23 @@
 import styled from "styled-components";
+import handlePokemonType from "../../styles/pokemonCardColor";
 
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
-  background: #1c2128;
+  background-color: #eaeaea;
 `;
 
-export const DetailPage = styled.div`
+export const DetailPage = styled.main`
   max-width: 576px;
   width: 100%;
-  background: #22272e;
+  background: ${({ pokemonType }) => handlePokemonType(pokemonType)};
   display: flex;
   flex-direction: column;
 `;
 
-export const Header = styled.div`
+export const Header = styled.header`
   width: 100%;
   text-align: left;
   padding: 1rem;
@@ -33,14 +34,12 @@ export const PokemonImage = styled.img`
 `;
 
 export const PokemonID = styled.p`
-  color: #adbac7;
   margin: 0;
   font-size: 1rem;
   font-weight: bold;
 `;
 
 export const PokemonName = styled.p`
-  color: #adbac7;
   margin: 0;
   text-transform: capitalize;
   font-size: 2rem;
@@ -48,14 +47,11 @@ export const PokemonName = styled.p`
 
 export const Detail = styled.div`
   flex-grow: 1;
-  border: 2px solid #444c56;
-  background-color: #373e47;
+  font-size: 14px;
+  background-color: white;
   border-radius: 2rem 2rem 0 0;
   padding: 1rem;
-  color: #adbac7;
-`;
-
-export const Subtitle = styled.p`
-  font-weight: 600;
-  margin-top: 2.2rem;
+  box-shadow: 0px -7px 6px 0px rgba(179, 179, 179, 0.55);
+  -webkit-box-shadow: 0px -7px 6px 0px rgba(179, 179, 179, 0.55);
+  -moz-box-shadow: 0px -7px 6px 0px rgba(179, 179, 179, 0.55);
 `;
