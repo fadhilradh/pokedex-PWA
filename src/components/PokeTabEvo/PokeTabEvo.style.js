@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PokemonImage = styled.img`
   width: 100%;
-  max-width: 220px;
+  max-width: 210px;
   padding: 0.25rem;
   border-radius: 1rem;
 

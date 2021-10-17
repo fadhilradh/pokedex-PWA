@@ -53,7 +53,7 @@ export const TypesWrapper = styled.div`
 `;
 
 export const Detail = styled.article`
-  margin-top: -1.9rem;
+  margin-top: -1.5rem;
   flex-grow: 1;
   font-size: 14px;
   background-color: white;

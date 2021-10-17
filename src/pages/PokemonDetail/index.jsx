@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { PokeTabAbout, PokeTabStats, PokeTabEvo, PokeTypeTag } from "../../components";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { IconContext } from "react-icons";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { PokeTabAbout, PokeTabStats, PokeTabEvo, PokeTypeTag } from "../../components";
 import {
   Container,
   Detail,
@@ -15,24 +15,30 @@ import {
   Preview,
   TypesWrapper,
 } from "./PokemonDetail.style";
+import { getEvoDetail } from "../../services/getEvolutions";
+import { getPokeByIdUrl, getPokeSpeciesUrl } from "../../services/baseUrls";
 
 const PokemonDetail = ({ match }) => {
+  const { id } = match.params;
   const [pokemonDetail, setPokemonDetail] = useState({});
   const [pokemonSpecies, setPokemonSpecies] = useState({});
-  const [evoChain, setEvoChain] = useState([]);
-  const [evoDetail, setEvoDetail] = useState([]);
+  const [evolutionChain, setEvoChain] = useState([]);
+  const [evolutionDetail, setEvoDetail] = useState([]);
   const [speciesDataFetched, setSpeciesDataFetched] = useState(false);
-  const [evoChainFetched, setEvoChainFetched] = useState(false);
+  const [evolutionChainFetched, setEvoChainFetched] = useState(false);
+  const [hasMultipleEvo, setHasMultipleEvo] = useState(false);
+  const pokemonPrimaryType = pokemonDetail?.types?.[0]?.type.name;
+  const pokemonTypesArray = pokemonDetail?.types?.map((type) => type?.type?.name);
 
   async function getPokemonDetails() {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${match.params.id}`);
+    const response = await fetch(getPokeByIdUrl + id);
     const data = await response.json();
     setPokemonDetail(data);
   }
 
   async function getPokemonSpecies() {
     try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${match.params.id}`);
+      const response = await fetch(getPokeSpeciesUrl + id);
       const data = await response.json();
       setPokemonSpecies(data);
       setSpeciesDataFetched(true);
@@ -41,56 +47,25 @@ const PokemonDetail = ({ match }) => {
     }
   }
 
-  async function getEvoData() {
+  async function getEvolutionList() {
     const response = await fetch(pokemonSpecies.evolution_chain.url);
     const data = await response.json();
-    let evoChain = [];
+    let evolutionChain = [];
     let evoData = data.chain;
+    let evoDetail = evoData.evolution_details?.[0];
 
     do {
-      // let numberOfEvos = evoData.evolves_to.length;
-
-      evoChain.push({
+      evolutionChain.push({
         species_name: evoData.species?.name,
-        min_level: !evoData ? 1 : evoData.evolution_details[0]?.min_level,
-        trigger_name: !evoData ? null : evoData.evolution_details[0]?.trigger?.name,
-        item: !evoData ? null : evoData.evolution_details[0]?.item?.name,
+        min_level: !evoData ? 1 : evoDetail?.min_level,
+        trigger_name: !evoData ? null : evoDetail?.trigger?.name,
+        item: !evoData ? null : evoDetail?.item?.name,
       });
-
-      // if (numberOfEvos > 1) {
-      //   for (let i = 1; i < numberOfEvos; i++) {
-      //     evoChain.push({
-      //       species_name: evoData.evolves_to[i].species?.name,
-      //       min_level: !evoData.evolves_to[i] ? 1 : evoData.evolves_to[i].evolution_details[i].min_level,
-      //       trigger_name: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[i].trigger.name,
-      //       item: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[i].item.name,
-      //     });
-      //   }
-      // }
 
       evoData = evoData.evolves_to[0];
     } while (evoData !== undefined && evoData.hasOwnProperty("evolves_to"));
-    setEvoChain(evoChain);
+    setEvoChain(evolutionChain);
     setEvoChainFetched(true);
-  }
-
-  async function getEvoDetail() {
-    try {
-      evoChain.forEach(async (pokemon) => {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.species_name}`);
-        const newData = await response.json();
-        setEvoDetail((currentData) => [
-          ...currentData,
-          {
-            id: newData.id,
-            name: newData.name,
-            src: newData.sprites.other["official-artwork"].front_default,
-          },
-        ]);
-      });
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   useEffect(() => {
@@ -100,22 +75,19 @@ const PokemonDetail = ({ match }) => {
 
   useEffect(() => {
     if (speciesDataFetched) {
-      getEvoData();
+      getEvolutionList();
     }
   }, [speciesDataFetched]);
 
   useEffect(() => {
-    if (evoChainFetched) {
-      getEvoDetail();
+    if (evolutionChainFetched) {
+      getEvoDetail(evolutionChain, setEvoDetail);
     }
-  }, [evoChainFetched]);
+  }, [evolutionChainFetched]);
 
-  const pokemonPrimaryType = pokemonDetail?.types?.[0]?.type.name;
-  const pokemonTypesArray = pokemonDetail?.types?.map((type) => type?.type?.name);
-  const [isMultipleEvo, setIsMultipleEvo] = useState(false);
   useEffect(() => {
-    if (evoChain.length > 2) setIsMultipleEvo(true);
-  }, [evoChain.length]);
+    if (evolutionChain.length > 2) setHasMultipleEvo(true);
+  }, [evolutionChain.length]);
 
   return (
     <Container>
@@ -154,7 +126,7 @@ const PokemonDetail = ({ match }) => {
             </TabPanel>
 
             <TabPanel>
-              <PokeTabEvo evoChain={evoChain} evoDetail={evoDetail} isMultipleEvo={isMultipleEvo} />
+              <PokeTabEvo evolutionDetail={evolutionDetail} hasMultipleEvo={hasMultipleEvo} />
             </TabPanel>
           </Tabs>
         </Detail>

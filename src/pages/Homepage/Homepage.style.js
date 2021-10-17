@@ -9,7 +9,20 @@ export const Container = styled.div`
   background: #eaeaea;
 `;
 
-export const PageTitle = styled.header`
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30%;
+`;
+
+export const StyledLink = styled.a`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const Title = styled.h1`
   font-size: 2.5rem;
   text-align: center;
 

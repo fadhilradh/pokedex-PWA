@@ -1,45 +1,39 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import GlobalStyle from "./styles/Globals.style";
 import PokemonDetail from "./pages/PokemonDetail";
+import { scrolledToBottom } from "./utils/constants";
+import { getPokemonDetails } from "./services/getPokemons";
+import { getAllPokeUrl } from "./services/baseUrls";
 
-function App() {
+const App = () => {
   const [allPokemons, setAllPokemons] = useState([]);
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadMorePokemons, setLoadMorePokemons] = useState("https://pokeapi.co/api/v2/pokemon?limit=21");
+  const [haveMorePokemon, setHaveMorePokemon] = useState(getAllPokeUrl);
 
-  async function getPokemonDetails(result) {
-    result.forEach(async (pokemon) => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-      const data = await response.json();
-      setAllPokemons((currentList) => [...currentList, data]);
-      setAllPokemons((currentList) => currentList.sort((a, b) => a.id - b.id));
-    });
-  }
-
-  async function fetchPokemons() {
+  const fetchPokemons = async () => {
     try {
-      const response = await fetch(loadMorePokemons);
+      const response = await fetch(haveMorePokemon);
       const data = await response.json();
-      setLoadMorePokemons(data.next);
+      setHaveMorePokemon(data.next);
       setTotalPokemon(data.count);
-      getPokemonDetails(data.results);
+      getPokemonDetails(data.results, setAllPokemons);
     } catch (err) {
       console.error(err);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchPokemons();
   }, []);
 
   window.onscroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-      if (loadMorePokemons) {
+    if (scrolledToBottom) {
+      if (haveMorePokemon) {
         setIsLoading(true);
         fetchPokemons();
       }
@@ -68,6 +62,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;
