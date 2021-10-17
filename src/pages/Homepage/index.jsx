@@ -5,7 +5,7 @@ import { Container, PageTitle, CardList } from "./Homepage.style";
 const Homepage = ({ allPokemons, totalPokemon, isLoading }) => {
   return (
     <Container>
-      <PageTitle>Black Pokedex {totalPokemon > 0 ? `(${totalPokemon})` : ""}</PageTitle>
+      <PageTitle>Pokedex {totalPokemon > 0 ? `(${totalPokemon})` : ""}</PageTitle>
       <CardList>
         {allPokemons.map((pokemon) => (
           <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>

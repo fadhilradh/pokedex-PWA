@@ -6,13 +6,13 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #1c2128;
+  background: #eaeaea;
 `;
 
-export const PageTitle = styled.h1`
-  color: #cdd9e5;
+export const PageTitle = styled.header`
   font-size: 2.5rem;
   text-align: center;
+  /* color: #ff0000; */
 
   @media only screen and (max-width: 450px) {
     font-size: 2rem;

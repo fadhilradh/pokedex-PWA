@@ -1,7 +1,5 @@
 import { Container, PokemonID, PokemonImage, PokemonName, TypesWrapper, DetailWrapper } from "./PokeCard.style";
 import PokeTypeTag from "../PokeTypeTag";
-import { ThemeProvider } from "styled-components";
-import { theme, grassTheme } from "../../styles/theme";
 
 const PokeCard = ({ name, id, image, types }) => {
   const typesArray = types.map((type) => type?.type?.name);
