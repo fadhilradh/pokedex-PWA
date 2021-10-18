@@ -9,23 +9,20 @@ import { useStore } from "./zustand/store";
 import shallow from "zustand/shallow";
 
 const App = () => {
-  const [pokemonList, addPokemons, setFetchingPokeList] = useStore(
+  const [pokemonList, addPokemons] = useStore(
     (state) => [state.pokemonList, state.addPokemons, state.setFetchingPokeList],
     shallow
   );
 
   const [totalPokemon, setTotalPokemon] = useState(0);
-  // const [isLoading, setIsLoading] = useState(false);
   const [nextPokemonsUrl, setNextPokemonsUrl] = useState(getPokeListUrl);
 
   async function fetchPokemons() {
     try {
-      // setFetchingPokeList(true);
       const pokemons = await getPokemonList(nextPokemonsUrl);
       setNextPokemonsUrl(pokemons.next);
       setTotalPokemon(pokemons.count);
       getPokemonDetails(pokemons.results, addPokemons);
-      setFetchingPokeList(false);
     } catch (err) {
       console.error(err);
     }
