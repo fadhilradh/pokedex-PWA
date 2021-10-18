@@ -32,8 +32,8 @@ const App = () => {
     fetchPokemons();
   }, []);
 
-  window.onscroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+  window.onscroll = function (ev) {
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
       if (nextPokemonsUrl) {
         fetchPokemons();
       }
