@@ -4,7 +4,7 @@ import Homepage from "./pages/Homepage";
 import GlobalStyle from "./styles/Globals.style";
 import PokemonDetail from "./pages/PokemonDetail";
 import { scrolledToBottom } from "./utils/constants";
-import { getPokemonList, getPokemonDetails } from "./services/getPokemons";
+import { getPokemonDetails } from "./services/getPokemons";
 import { getPokeListUrl } from "./services/baseUrls";
 
 const App = () => {
@@ -15,7 +15,8 @@ const App = () => {
 
   async function fetchPokemons() {
     try {
-      const pokemons = await getPokemonList(nextPokemonsUrl);
+      const response = await fetch(nextPokemonsUrl);
+      const pokemons = await response.json();
       setNextPokemonsUrl(pokemons.next);
       setTotalPokemon(pokemons.count);
       getPokemonDetails(pokemons.results, setAllPokemons);
@@ -31,7 +32,7 @@ const App = () => {
   }, []);
 
   window.onscroll = () => {
-    if (scrolledToBottom) {
+    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
       if (nextPokemonsUrl) {
         setIsLoading(true);
         fetchPokemons();

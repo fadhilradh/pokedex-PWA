@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const Container = styled.section`
+  min-height: 400px;
+`;
+
 export const Description = styled.p`
   margin-top: 1rem;
   font-weight: 500;
