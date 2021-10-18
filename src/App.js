@@ -4,24 +4,23 @@ import Homepage from "./pages/Homepage";
 import GlobalStyle from "./styles/Globals.style";
 import PokemonDetail from "./pages/PokemonDetail";
 import { getPokemonDetails, getPokemonList } from "./services/getPokemons";
-import { baseLimit, getPokeListUrl } from "./services/baseUrls";
+import { getPokeListUrl } from "./services/baseUrls";
 import { useStore } from "./zustand/store";
 import shallow from "zustand/shallow";
 
 const App = () => {
-  const [pokemonList, addPokemons] = useStore(
-    (state) => [state.pokemonList, state.addPokemons, state.setFetchingPokeList],
+  const [pokemonList, addPokemons, pokemonsCount, setPokemonsCount] = useStore(
+    (state) => [state.pokemonList, state.addPokemons, state.pokemonsCount, state.setPokemonsCount],
     shallow
   );
 
-  const [totalPokemon, setTotalPokemon] = useState(0);
   const [nextPokemonsUrl, setNextPokemonsUrl] = useState(getPokeListUrl);
 
   async function fetchPokemons() {
     try {
       const pokemons = await getPokemonList(nextPokemonsUrl);
       setNextPokemonsUrl(pokemons.next);
-      setTotalPokemon(pokemons.count);
+      setPokemonsCount(pokemons.count);
       getPokemonDetails(pokemons.results, addPokemons);
     } catch (err) {
       console.error(err);
@@ -32,14 +31,6 @@ const App = () => {
     fetchPokemons();
   }, []);
 
-  window.onscroll = function (ev) {
-    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-      if (nextPokemonsUrl) {
-        fetchPokemons();
-      }
-    }
-  };
-
   return (
     <Router>
       <div className="App">
@@ -49,7 +40,7 @@ const App = () => {
             path="/"
             exact
             render={() => (
-              <Homepage allPokemons={pokemonList} fetchPokemons={fetchPokemons} totalPokemon={totalPokemon} />
+              <Homepage allPokemons={pokemonList} fetchPokemons={fetchPokemons} pokemonsCount={pokemonsCount} />
             )}
           />
           <Route path="/pokemon/:id" exact component={PokemonDetail} />

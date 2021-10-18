@@ -7,7 +7,7 @@ const store = (set) => ({
   isFetchingPokeList: false,
   isFetchingMorePoke: false,
   addPokemons: (newPokemons) =>
-    set((state) => ({ pokemonList: [...state.pokemonList, newPokemons].sort((a, b) => a.id - b.id) })),
+    set((state) => ({ pokemonList: [...new Set([...state.pokemonList, newPokemons])].sort((a, b) => a.id - b.id) })),
   setPokemonsCount: (count) => set({ pokemonsCount: count }),
   setFetchingPokeList: (status) => set({ isFetchingPokeList: status }),
   setFetchingMorePoke: (status) => set({ isFetchingMorePoke: status }),

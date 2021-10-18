@@ -4,7 +4,11 @@ const handlePokemonType = (pokemonType) => {
       return "#B5EAAF";
     case "fire":
       return "#FFC8A9";
+    case "dragon":
+      return "#FFC8A9";
     case "water":
+      return "#AFD9FF";
+    case "ice":
       return "#AFD9FF";
     case "bug":
       return "#D4DFA7";
@@ -23,9 +27,9 @@ const handlePokemonType = (pokemonType) => {
     case "psychic":
       return "#FFCBDE";
     case "rock":
-      return "ECD8B4";
+      return "#ECD8B4";
     case "ghost":
-      return "CBC1E8";
+      return "#CBC1E8";
     default:
       return "#fff";
   }
