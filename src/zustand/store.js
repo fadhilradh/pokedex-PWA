@@ -1,16 +1,9 @@
-import create from 'zustand'
-import produce from "immer";
+import create from "zustand";
+import { devtools } from "zustand/middleware";
 
-const useStore = create(set => ({
-  bookmarkedPokemons: [],
-  addDrama: (payload) =>
-    set(
-      produce((draft) => {
-        draft.bookmarkedPokemons.push({
-          id: ,
-          name: payload,
-        });
-      })
-    ),
+const store = (set) => ({
+  pokemonList: [],
+  addPokemons: (newPokemons) => set((state) => ({ pokemonList: [...state.pokemonList, newPokemons] })),
+});
 
-}))
+export const useStore = create(devtools(store));

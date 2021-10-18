@@ -4,28 +4,30 @@ import Homepage from "./pages/Homepage";
 import GlobalStyle from "./styles/Globals.style";
 import PokemonDetail from "./pages/PokemonDetail";
 import { scrolledToBottom } from "./utils/constants";
-import { getPokemonDetails } from "./services/getPokemons";
-import { getAllPokeUrl } from "./services/baseUrls";
+import { getPokemonList, getPokemonDetails } from "./services/getPokemons";
+import { useStore } from "./zustand/store";
+import { getPokeListUrl } from "./services/baseUrls";
 
 const App = () => {
+  const pokemonList = useStore((state) => state.pokemonList);
+  const addPokemons = useStore((state) => state.addPokemons);
   const [allPokemons, setAllPokemons] = useState([]);
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [haveMorePokemon, setHaveMorePokemon] = useState(getAllPokeUrl);
+  const [nextPokemonsUrl, setNextPokemonsUrl] = useState(getPokeListUrl);
 
-  const fetchPokemons = async () => {
+  async function fetchPokemons() {
     try {
-      const response = await fetch(haveMorePokemon);
-      const data = await response.json();
-      setHaveMorePokemon(data.next);
-      setTotalPokemon(data.count);
-      getPokemonDetails(data.results, setAllPokemons);
+      const pokemons = await getPokemonList(nextPokemonsUrl);
+      setNextPokemonsUrl(pokemons.next);
+      setTotalPokemon(pokemons.count);
+      getPokemonDetails(pokemons.results, addPokemons);
     } catch (err) {
       console.error(err);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     fetchPokemons();
@@ -33,7 +35,7 @@ const App = () => {
 
   window.onscroll = () => {
     if (scrolledToBottom) {
-      if (haveMorePokemon) {
+      if (nextPokemonsUrl) {
         setIsLoading(true);
         fetchPokemons();
       }
@@ -50,7 +52,7 @@ const App = () => {
             exact
             render={() => (
               <Homepage
-                allPokemons={allPokemons}
+                allPokemons={pokemonList.sort((a, b) => a.id - b.id)}
                 fetchPokemons={fetchPokemons}
                 totalPokemon={totalPokemon}
                 isLoading={isLoading}
