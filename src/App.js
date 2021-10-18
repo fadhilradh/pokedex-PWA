@@ -5,12 +5,9 @@ import GlobalStyle from "./styles/Globals.style";
 import PokemonDetail from "./pages/PokemonDetail";
 import { scrolledToBottom } from "./utils/constants";
 import { getPokemonList, getPokemonDetails } from "./services/getPokemons";
-import { useStore } from "./zustand/store";
 import { getPokeListUrl } from "./services/baseUrls";
 
 const App = () => {
-  const pokemonList = useStore((state) => state.pokemonList);
-  const addPokemons = useStore((state) => state.addPokemons);
   const [allPokemons, setAllPokemons] = useState([]);
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +18,7 @@ const App = () => {
       const pokemons = await getPokemonList(nextPokemonsUrl);
       setNextPokemonsUrl(pokemons.next);
       setTotalPokemon(pokemons.count);
-      getPokemonDetails(pokemons.results, addPokemons);
+      getPokemonDetails(pokemons.results, setAllPokemons);
     } catch (err) {
       console.error(err);
     } finally {
@@ -52,7 +49,7 @@ const App = () => {
             exact
             render={() => (
               <Homepage
-                allPokemons={pokemonList.sort((a, b) => a.id - b.id)}
+                allPokemons={allPokemons}
                 fetchPokemons={fetchPokemons}
                 totalPokemon={totalPokemon}
                 isLoading={isLoading}

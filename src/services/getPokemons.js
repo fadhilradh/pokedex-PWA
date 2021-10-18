@@ -15,7 +15,8 @@ export async function getPokemonDetails(pokemonList, callback) {
     pokemonList.forEach(async (pokemon) => {
       const response = await fetch(getPokeByIdUrl + pokemon.name);
       const data = await response.json();
-      callback(data);
+      callback((currentList) => [...currentList, data]);
+      callback((currentList) => currentList.sort((a, b) => a.id - b.id));
     });
   } catch (error) {
     console.error(error);
