@@ -1,4 +1,11 @@
-import { getPokeByIdUrl } from "./baseUrls";
+import { useStore } from "../zustand/store";
+import { baseLimit, getPokeByIdUrl } from "./baseUrls";
+
+// export function checkFetchType(url) {
+//   if () {
+//     return
+//   }
+// }
 
 export async function getPokemonList(nextPokemonsUrl) {
   try {
@@ -15,8 +22,7 @@ export async function getPokemonDetails(pokemonList, callback) {
     pokemonList.forEach(async (pokemon) => {
       const response = await fetch(getPokeByIdUrl + pokemon.name);
       const data = await response.json();
-      callback((currentList) => [...currentList, data]);
-      callback((currentList) => currentList.sort((a, b) => a.id - b.id));
+      callback(data);
     });
   } catch (error) {
     console.error(error);

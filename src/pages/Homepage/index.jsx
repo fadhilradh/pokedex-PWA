@@ -3,8 +3,14 @@ import { IconContext } from "react-icons";
 import { BsFillBookmarksFill } from "react-icons/bs";
 import { PokeCard } from "../../components";
 import { Container, Header, Title, CardList, StyledLink } from "./Homepage.style";
+import { useStore } from "../../zustand/store";
+import shallow from "zustand/shallow";
 
-const Homepage = ({ allPokemons, totalPokemon, isLoading }) => {
+const Homepage = ({ allPokemons, totalPokemon }) => {
+  const [isFetchingPokeList, isFetchingMorePoke] = useStore(
+    (state) => [state.isFetchingPokeList, state.isFetchingMorePoke],
+    shallow
+  );
   return (
     <Container>
       <Header>
@@ -15,19 +21,22 @@ const Homepage = ({ allPokemons, totalPokemon, isLoading }) => {
           </IconContext.Provider>
         </StyledLink>
       </Header>
-      <CardList>
-        {allPokemons.map((pokemon) => (
-          <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
-            <PokeCard
-              name={pokemon.name}
-              id={pokemon.id}
-              image={pokemon.sprites.other["official-artwork"].front_default}
-              types={pokemon.types}
-            />
-          </Link>
-        ))}
-      </CardList>
-      {isLoading ? <h3>Gathering more pokemons ...</h3> : ""}
+      {isFetchingPokeList && <p>Catching Pokemons...</p>}
+      {!isFetchingPokeList && (
+        <CardList>
+          {allPokemons.map((pokemon) => (
+            <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+              <PokeCard
+                name={pokemon.name}
+                id={pokemon.id}
+                image={pokemon.sprites.other["official-artwork"].front_default}
+                types={pokemon.types}
+              />
+            </Link>
+          ))}
+        </CardList>
+      )}
+      {isFetchingMorePoke ? <h3>Catching more pokemons ...</h3> : ""}
     </Container>
   );
 };
