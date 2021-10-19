@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FaArrowRight } from "react-icons/fa";
 import { EvoChainWrapper, PokemonImage, PokemonName } from "../PokeTabEvo/PokeTabEvo.style";
 
@@ -19,6 +20,16 @@ const EvoSingle = ({ evolutionDetail }) => {
       </span>
     </EvoChainWrapper>
   );
+};
+
+EvoSingle.propTypes = {
+  evolutionDetail: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      src: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default EvoSingle;

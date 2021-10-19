@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { BsFillBookmarksFill } from "react-icons/bs";
 import InfiniteScroll from "react-infinite-scroll-component";
+import PropTypes from "prop-types";
 import { PokeCard } from "../../components";
 import { Container, Header, Title, CardList, StyledLink } from "./Homepage.style";
 
@@ -18,7 +19,7 @@ const Homepage = ({ allPokemons, fetchPokemons, pokemonsCount }) => {
       </Header>
 
       <InfiniteScroll
-        dataLength={allPokemons.length} //This is important field to render the next data
+        dataLength={allPokemons.length}
         next={fetchPokemons}
         hasMore={true}
         loader={<h4>Catching pokemons...</h4>}
@@ -43,6 +44,19 @@ const Homepage = ({ allPokemons, fetchPokemons, pokemonsCount }) => {
       </InfiniteScroll>
     </Container>
   );
+};
+
+Homepage.propTypes = {
+  allPokemons: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      image: PropTypes.shape({}),
+      name: PropTypes.string,
+      types: PropTypes.arrayOf(PropTypes.shape({})),
+    })
+  ).isRequired,
+  fetchPokemons: PropTypes.func.isRequired,
+  pokemonsCount: PropTypes.number.isRequired,
 };
 
 export default Homepage;

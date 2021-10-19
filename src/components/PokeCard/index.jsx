@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { Container, PokemonID, PokemonImage, PokemonName, TypesWrapper, DetailWrapper, Root } from "./PokeCard.style";
 import PokeTypeTag from "../PokeTypeTag";
 
@@ -21,6 +23,19 @@ const PokeCard = ({ name, id, image, types }) => {
       </Container>
     </Root>
   );
+};
+
+PokeCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  types: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      })
+    )
+  ).isRequired,
 };
 
 export default PokeCard;

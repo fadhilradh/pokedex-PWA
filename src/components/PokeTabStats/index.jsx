@@ -1,12 +1,13 @@
+import PropTypes from "prop-types";
+
 import ProgressBar from "@ramonak/react-progress-bar";
 import React from "react";
 import { Container } from "../PokeTabAbout/PokeAboutTab.style";
 
-const PokeStatsTab = ({ pokemonDetail }) => {
-  console.log("🚀 ~ file: index.jsx ~ line 4 ~ PokeStatsTab ~ pokemonDetail", pokemonDetail);
+const PokeStatsTab = ({ stats }) => {
   return (
     <Container>
-      {pokemonDetail?.stats?.map((stat) => (
+      {stats?.map((stat) => (
         <div key={stat.stat.name}>
           <p>{stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1)}</p>
           <ProgressBar
@@ -22,6 +23,21 @@ const PokeStatsTab = ({ pokemonDetail }) => {
       ))}
     </Container>
   );
+};
+
+PokeStatsTab.propTypes = {
+  stats: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.objectOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+        })
+      ),
+      PropTypes.shape({
+        base_stat: PropTypes.number.isRequired,
+      })
+    )
+  ).isRequired,
 };
 
 export default PokeStatsTab;

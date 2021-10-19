@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IconContext } from "react-icons";
@@ -17,11 +18,16 @@ import {
 } from "./PokemonDetail.style";
 import { getEvoDetail } from "../../services/getEvolutions";
 import { getPokeByIdUrl, getPokeSpeciesUrl } from "../../services/baseUrls";
+import { useStore } from "../../zustand/store";
+import shallow from "zustand/shallow";
 
 const PokemonDetail = ({ match }) => {
   const { id } = match.params;
-  const [pokemonDetail, setPokemonDetail] = useState({});
+  const [pokemonList, addPokemons] = useStore((state) => [state.pokemonList, state.addPokemons], shallow);
+  // const [pokemonDetail, setPokemonDetail] = useState(() => pokemonList.find((pokemon) => pokemon.id == id));
+
   const [pokemonSpecies, setPokemonSpecies] = useState({});
+  const [pokemonDetail, setPokemonDetail] = useState({});
   const [evolutionChain, setEvoChain] = useState([]);
   const [evolutionDetail, setEvoDetail] = useState([]);
   const [speciesDataFetched, setSpeciesDataFetched] = useState(false);
@@ -107,7 +113,7 @@ const PokemonDetail = ({ match }) => {
               <PokeTypeTag key={index} type={type} />
             ))}
           </TypesWrapper>
-          <PokemonImage src={pokemonDetail.sprites?.other["official-artwork"].front_default} alt="pokemon" />
+          <PokemonImage src={pokemonDetail?.sprites?.other["official-artwork"].front_default} alt="pokemon" />
         </Preview>
         <Detail>
           <Tabs>
@@ -122,7 +128,7 @@ const PokemonDetail = ({ match }) => {
             </TabPanel>
 
             <TabPanel>
-              <PokeTabStats pokemonDetail={pokemonDetail} />
+              <PokeTabStats stats={pokemonDetail.stats} />
             </TabPanel>
 
             <TabPanel>
@@ -133,6 +139,14 @@ const PokemonDetail = ({ match }) => {
       </DetailPage>
     </Container>
   );
+};
+
+PokemonDetail.propTypes = {
+  match: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+    })
+  ).isRequired,
 };
 
 export default PokemonDetail;

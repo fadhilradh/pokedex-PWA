@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { PokeDetailItem } from "..";
 import { Container, Description, Subtitle } from "./PokeAboutTab.style";
 
@@ -29,6 +31,22 @@ const PokeAboutTab = ({ pokemonSpecies, pokemonDetail }) => {
       />
     </Container>
   );
+};
+
+PokeAboutTab.propTypes = {
+  pokemonSpecies: PropTypes.arrayOf(
+    PropTypes.shape({
+      egg_groups: PropTypes.arrayOf(),
+      gender_rate: PropTypes.number,
+    })
+  ).isRequired,
+  pokemonDetail: PropTypes.arrayOf(
+    PropTypes.shape({
+      abilities: PropTypes.arrayOf(),
+      weight: PropTypes.number,
+      height: PropTypes.number,
+    })
+  ).isRequired,
 };
 
 export default PokeAboutTab;
