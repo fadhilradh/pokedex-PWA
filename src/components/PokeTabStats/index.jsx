@@ -26,18 +26,11 @@ const PokeStatsTab = ({ stats }) => {
 };
 
 PokeStatsTab.propTypes = {
-  stats: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.objectOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-        })
-      ),
-      PropTypes.shape({
-        base_stat: PropTypes.number.isRequired,
-      })
-    )
-  ).isRequired,
+  stats: PropTypes.array,
+};
+
+PokeStatsTab.defaultProps = {
+  stats: [],
 };
 
 export default PokeStatsTab;

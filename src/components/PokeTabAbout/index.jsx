@@ -34,19 +34,15 @@ const PokeAboutTab = ({ pokemonSpecies, pokemonDetail }) => {
 };
 
 PokeAboutTab.propTypes = {
-  pokemonSpecies: PropTypes.arrayOf(
-    PropTypes.shape({
-      egg_groups: PropTypes.arrayOf(),
-      gender_rate: PropTypes.number,
-    })
-  ).isRequired,
-  pokemonDetail: PropTypes.arrayOf(
-    PropTypes.shape({
-      abilities: PropTypes.arrayOf(),
-      weight: PropTypes.number,
-      height: PropTypes.number,
-    })
-  ).isRequired,
+  pokemonSpecies: PropTypes.shape({
+    egg_groups: PropTypes.array,
+    gender_rate: PropTypes.number,
+  }).isRequired,
+  pokemonDetail: PropTypes.shape({
+    abilities: PropTypes.array,
+    weight: PropTypes.number,
+    height: PropTypes.number,
+  }).isRequired,
 };
 
 export default PokeAboutTab;

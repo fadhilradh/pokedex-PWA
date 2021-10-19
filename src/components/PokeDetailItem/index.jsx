@@ -12,8 +12,13 @@ const PokeDetailItem = ({ property, value }) => {
 };
 
 PokeDetailItem.propTypes = {
-  property: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  property: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+};
+
+PokeDetailItem.defaultProps = {
+  property: "",
+  value: "",
 };
 
 export default PokeDetailItem;

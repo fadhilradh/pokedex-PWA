@@ -142,11 +142,9 @@ const PokemonDetail = ({ match }) => {
 };
 
 PokemonDetail.propTypes = {
-  match: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-    })
-  ).isRequired,
+  match: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
 };
 
 export default PokemonDetail;
