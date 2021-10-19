@@ -29,7 +29,7 @@ PokeCard.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  types: PropTypes.array.isRequired,
+  types: PropTypes.arrayOf.isRequired,
 };
 
 export default PokeCard;

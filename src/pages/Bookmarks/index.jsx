@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import PropTypes from "prop-types";
 import { PokeCard } from "../../components";
-import { Container, Header, Title, CardList } from "../Homepage/Homepage.style";
+import { Container, Header, Title, CardList, StyledLink } from "../Homepage/Homepage.style";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import useStore from "../../zustand/store";
 
@@ -12,13 +12,15 @@ const Bookmarks = ({}) => {
 
   return (
     <Container>
-      <Header>
-        <a href="/">
-          <IconContext.Provider value={{ size: "2rem" }}>
-            <AiOutlineArrowLeft />
-          </IconContext.Provider>
-        </a>
-        <Title>Bookmarks</Title>
+      <Header bookmark>
+        <StyledLink bookmark>
+          <a href="/">
+            <IconContext.Provider value={{ size: "2rem" }}>
+              <AiOutlineArrowLeft />
+            </IconContext.Provider>
+          </a>
+        </StyledLink>
+        <Title bookmark>Bookmarks</Title>
       </Header>
 
       <CardList>

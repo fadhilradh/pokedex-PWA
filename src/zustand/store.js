@@ -16,7 +16,7 @@ let store = (set) => ({
 });
 
 store = devtools(store);
-store = persist(store, { name: "pokemons", whitelist: "bookmarkedPokemons" });
+store = persist(store, { name: "bookmarkedPokemons", whitelist: "bookmarkedPokemons" });
 
 const useStore = create(store);
 

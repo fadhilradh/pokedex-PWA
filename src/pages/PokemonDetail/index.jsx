@@ -25,8 +25,7 @@ import shallow from "zustand/shallow";
 
 const PokemonDetail = ({ match }) => {
   const { id } = match.params;
-  const [pokemonList, bookmarkPokemon] = useStore((state) => [state.pokemonList, state.bookmarkPokemon], shallow);
-  // const [pokemonDetail, setPokemonDetail] = useState(() => pokemonList.find((pokemon) => pokemon.id == id));
+  const bookmarkPokemon = useStore((state) => state.bookmarkPokemon);
 
   const [pokemonSpecies, setPokemonSpecies] = useState({});
   const [pokemonDetail, setPokemonDetail] = useState({});
@@ -35,6 +34,7 @@ const PokemonDetail = ({ match }) => {
   const [speciesDataFetched, setSpeciesDataFetched] = useState(false);
   const [evolutionChainFetched, setEvoChainFetched] = useState(false);
   const [hasMultipleEvo, setHasMultipleEvo] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const pokemonPrimaryType = pokemonDetail?.types?.[0]?.type.name;
   const pokemonTypesArray = pokemonDetail?.types?.map((type) => type?.type?.name);
   const pokemonImg = pokemonDetail?.sprites?.other["official-artwork"].front_default;
@@ -113,9 +113,14 @@ const PokemonDetail = ({ match }) => {
               <AiOutlineArrowLeft />
             </IconContext.Provider>
           </a>
-          <StyledIcon onClick={() => bookmarkPokemon(pokemonObject)}>
+          <StyledIcon
+            onClick={() => {
+              bookmarkPokemon(pokemonObject);
+              setBookmarked(true);
+            }}
+          >
             <IconContext.Provider value={{ size: "2rem" }}>
-              <BsBookmarkPlus />
+              {bookmarked ? <BsBookmarkPlusFill /> : <BsBookmarkPlus />}
             </IconContext.Provider>
           </StyledIcon>
         </Header>
