@@ -1,19 +1,26 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background: #eaeaea;
+  min-height: 100vh;
 `;
 
 export const Header = styled.header`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 30%;
+  width: 620px;
+
+  @media only screen and (max-width: 750px) {
+    width: 410px;
+  }
+
+  @media only screen and (max-width: 450px) {
+    width: 360px;
+  }
 `;
 
 export const StyledLink = styled.a`
@@ -27,7 +34,7 @@ export const Title = styled.h1`
   text-align: center;
 
   @media only screen and (max-width: 450px) {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 `;
 

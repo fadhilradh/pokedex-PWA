@@ -1,4 +1,4 @@
-import { useStore } from "../zustand/store";
+import useStore from "../zustand/store";
 import { baseLimit, getPokeByIdUrl } from "./baseUrls";
 
 // export function checkFetchType(url) {

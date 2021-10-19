@@ -20,6 +20,8 @@ export const DetailPage = styled.div`
 export const Header = styled.nav`
   text-align: left;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const Preview = styled.main`
@@ -45,6 +47,10 @@ export const PokemonName = styled.p`
   margin: 0;
   text-transform: capitalize;
   font-size: 2rem;
+`;
+
+export const StyledIcon = styled.div`
+  cursor: pointer;
 `;
 
 export const TypesWrapper = styled.div`

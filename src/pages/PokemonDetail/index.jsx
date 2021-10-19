@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { IconContext } from "react-icons";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { BsBookmarkPlus, BsBookmarkPlusFill } from "react-icons/bs";
 import { PokeTabAbout, PokeTabStats, PokeTabEvo, PokeTypeTag } from "../../components";
 import {
   Container,
@@ -14,16 +15,17 @@ import {
   PokemonImage,
   PokemonName,
   Preview,
+  StyledIcon,
   TypesWrapper,
 } from "./PokemonDetail.style";
 import { getEvoDetail } from "../../services/getEvolutions";
 import { getPokeByIdUrl, getPokeSpeciesUrl } from "../../services/baseUrls";
-import { useStore } from "../../zustand/store";
+import useStore from "../../zustand/store";
 import shallow from "zustand/shallow";
 
 const PokemonDetail = ({ match }) => {
   const { id } = match.params;
-  const [pokemonList, addPokemons] = useStore((state) => [state.pokemonList, state.addPokemons], shallow);
+  const [pokemonList, bookmarkPokemon] = useStore((state) => [state.pokemonList, state.bookmarkPokemon], shallow);
   // const [pokemonDetail, setPokemonDetail] = useState(() => pokemonList.find((pokemon) => pokemon.id == id));
 
   const [pokemonSpecies, setPokemonSpecies] = useState({});
@@ -35,6 +37,13 @@ const PokemonDetail = ({ match }) => {
   const [hasMultipleEvo, setHasMultipleEvo] = useState(false);
   const pokemonPrimaryType = pokemonDetail?.types?.[0]?.type.name;
   const pokemonTypesArray = pokemonDetail?.types?.map((type) => type?.type?.name);
+  const pokemonImg = pokemonDetail?.sprites?.other["official-artwork"].front_default;
+  const pokemonObject = {
+    id: pokemonDetail.id,
+    img: pokemonImg,
+    name: pokemonDetail.name,
+    types: pokemonDetail.types,
+  };
 
   async function getPokemonDetails() {
     const response = await fetch(getPokeByIdUrl + id);
@@ -104,6 +113,11 @@ const PokemonDetail = ({ match }) => {
               <AiOutlineArrowLeft />
             </IconContext.Provider>
           </a>
+          <StyledIcon onClick={() => bookmarkPokemon(pokemonObject)}>
+            <IconContext.Provider value={{ size: "2rem" }}>
+              <BsBookmarkPlus />
+            </IconContext.Provider>
+          </StyledIcon>
         </Header>
         <Preview>
           <PokemonID>#00{pokemonDetail?.id}</PokemonID>
@@ -113,7 +127,7 @@ const PokemonDetail = ({ match }) => {
               <PokeTypeTag key={index} type={type} />
             ))}
           </TypesWrapper>
-          <PokemonImage src={pokemonDetail?.sprites?.other["official-artwork"].front_default} alt="pokemon" />
+          <PokemonImage src={pokemonImg} alt="pokemon" />
         </Preview>
         <Detail>
           <Tabs>

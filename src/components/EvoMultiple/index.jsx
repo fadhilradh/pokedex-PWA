@@ -10,29 +10,29 @@ const EvoMultiple = ({ evolutionDetail }) => {
           <a href={`/pokemon/${evolutionDetail[0]?.id}`}>
             <PokemonImage src={evolutionDetail[0].src} />
           </a>
-          <PokemonName>{evolutionDetail[0].name}</PokemonName>
+          <PokemonName>{evolutionDetail[0]?.name}</PokemonName>
         </div>
         <FaArrowRight />
         <div>
           <a href={`/pokemon/${evolutionDetail[1]?.id}`}>
-            <PokemonImage src={evolutionDetail[1].src} />
+            <PokemonImage src={evolutionDetail[1]?.src} />
           </a>
-          <PokemonName>{evolutionDetail[1].name}</PokemonName>
+          <PokemonName>{evolutionDetail[1]?.name}</PokemonName>
         </div>
       </EvoChainWrapper>
       <EvoChainWrapper>
         <div>
           <a href={`/pokemon/${evolutionDetail[1]?.id}`}>
-            <PokemonImage src={evolutionDetail[1].src} />
+            <PokemonImage src={evolutionDetail[1]?.src} />
           </a>
-          <PokemonName>{evolutionDetail[1].name}</PokemonName>
+          <PokemonName>{evolutionDetail[1]?.name}</PokemonName>
         </div>
         <FaArrowRight />
         <div>
           <a href={`/pokemon/${evolutionDetail[2]?.id}`}>
-            <PokemonImage src={evolutionDetail[2].src} />
+            <PokemonImage src={evolutionDetail[2]?.src} />
           </a>
-          <PokemonName>{evolutionDetail[2].name}</PokemonName>
+          <PokemonName>{evolutionDetail[2]?.name}</PokemonName>
         </div>
       </EvoChainWrapper>
     </>

@@ -7,16 +7,16 @@ const EvoSingle = ({ evolutionDetail }) => {
     <EvoChainWrapper>
       <span>
         <a href={`/pokemon/${evolutionDetail[0]?.id}`}>
-          <PokemonImage src={evolutionDetail[0].src} />
+          <PokemonImage src={evolutionDetail[0]?.src} />
         </a>
-        <PokemonName>{evolutionDetail[0].name}</PokemonName>
+        <PokemonName>{evolutionDetail[0]?.name}</PokemonName>
       </span>
       <FaArrowRight />
       <span>
         <a href={`/pokemon/${evolutionDetail[1]?.id}`}>
-          <PokemonImage src={evolutionDetail[1].src} />
+          <PokemonImage src={evolutionDetail[1]?.src} />
         </a>
-        <PokemonName>{evolutionDetail[1].name}</PokemonName>
+        <PokemonName>{evolutionDetail[1]?.name}</PokemonName>
       </span>
     </EvoChainWrapper>
   );
