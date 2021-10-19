@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Homepage, PokemonDetail, Bookmarks } from "./pages";
 import GlobalStyle from "./styles/Globals.style";
-import { getPokemonDetails, getPokemonList } from "./services/getPokemons";
+import { getPokemonsDetail, getPokemonList } from "./services/getPokemons";
 import { getPokeListUrl } from "./services/baseUrls";
 import useStore from "./zustand/store";
 import shallow from "zustand/shallow";
@@ -20,7 +20,7 @@ const App = () => {
       const pokemons = await getPokemonList(nextPokemonsUrl);
       setNextPokemonsUrl(pokemons.next);
       setPokemonsCount(pokemons.count);
-      getPokemonDetails(pokemons.results, addPokemons);
+      getPokemonsDetail(pokemons.results, addPokemons);
     } catch (err) {
       console.error(err);
     }

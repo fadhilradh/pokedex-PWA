@@ -6,6 +6,10 @@ import { IconContext } from "react-icons";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { BsBookmarkPlus, BsBookmarkPlusFill } from "react-icons/bs";
 import { PokeTabAbout, PokeTabStats, PokeTabEvo, PokeTypeTag } from "../../components";
+import { getEvoDetail, getEvolutionList } from "../../services/getEvolutions";
+import { getPokemonDetailById } from "../../services/getPokemons";
+import { getPokeSpeciesUrl } from "../../services/baseUrls";
+import useStore from "../../zustand/store";
 import {
   Container,
   Detail,
@@ -18,10 +22,7 @@ import {
   StyledIcon,
   TypesWrapper,
 } from "./PokemonDetail.style";
-import { getEvoDetail } from "../../services/getEvolutions";
-import { getPokeByIdUrl, getPokeSpeciesUrl } from "../../services/baseUrls";
-import useStore from "../../zustand/store";
-import shallow from "zustand/shallow";
+import { getPokemonSpecies } from "../../services/getSpecies";
 
 const PokemonDetail = ({ match }) => {
   const { id } = match.params;
@@ -31,7 +32,7 @@ const PokemonDetail = ({ match }) => {
   const [pokemonDetail, setPokemonDetail] = useState({});
   const [evolutionChain, setEvoChain] = useState([]);
   const [evolutionDetail, setEvoDetail] = useState([]);
-  const [speciesDataFetched, setSpeciesDataFetched] = useState(false);
+  const [speciesFetched, setSpeciesFetched] = useState(false);
   const [evolutionChainFetched, setEvoChainFetched] = useState(false);
   const [hasMultipleEvo, setHasMultipleEvo] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -45,54 +46,16 @@ const PokemonDetail = ({ match }) => {
     types: pokemonDetail.types,
   };
 
-  async function getPokemonDetails() {
-    const response = await fetch(getPokeByIdUrl + id);
-    const data = await response.json();
-    setPokemonDetail(data);
-  }
-
-  async function getPokemonSpecies() {
-    try {
-      const response = await fetch(getPokeSpeciesUrl + id);
-      const data = await response.json();
-      setPokemonSpecies(data);
-      setSpeciesDataFetched(true);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function getEvolutionList() {
-    const response = await fetch(pokemonSpecies.evolution_chain.url);
-    const data = await response.json();
-    let evolutionChain = [];
-    let evoData = data.chain;
-    let evoDetail = evoData.evolution_details?.[0];
-
-    do {
-      evolutionChain.push({
-        species_name: evoData.species?.name,
-        min_level: !evoData ? 1 : evoDetail?.min_level,
-        trigger_name: !evoData ? null : evoDetail?.trigger?.name,
-        item: !evoData ? null : evoDetail?.item?.name,
-      });
-
-      evoData = evoData.evolves_to[0];
-    } while (evoData !== undefined && evoData.hasOwnProperty("evolves_to"));
-    setEvoChain(evolutionChain);
-    setEvoChainFetched(true);
-  }
-
   useEffect(() => {
-    getPokemonDetails();
-    getPokemonSpecies();
+    getPokemonDetailById(id, setPokemonDetail);
+    getPokemonSpecies(id, setPokemonSpecies, setSpeciesFetched);
   }, []);
 
   useEffect(() => {
-    if (speciesDataFetched) {
-      getEvolutionList();
+    if (speciesFetched) {
+      getEvolutionList(pokemonSpecies.evolution_chain.url, setEvoChain, setEvoChainFetched);
     }
-  }, [speciesDataFetched]);
+  }, [speciesFetched]);
 
   useEffect(() => {
     if (evolutionChainFetched) {

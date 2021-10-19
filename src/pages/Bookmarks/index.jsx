@@ -8,7 +8,6 @@ import useStore from "../../zustand/store";
 
 const Bookmarks = ({}) => {
   const bookmarkedPokemons = useStore((state) => state.bookmarkedPokemons);
-  console.log("🚀 ~ file: index.jsx ~ line 11 ~ Bookmarks ~ bookmarkedPokemons", bookmarkedPokemons);
 
   return (
     <Container>
