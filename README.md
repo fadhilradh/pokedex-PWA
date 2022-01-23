@@ -1,6 +1,6 @@
 # React Pokedex 
 
-## built with React, Styled Components and Zustand state management 
+## Built with React, Styled Components and Zustand state management 
 
 Features : 
 - Pokemon list
