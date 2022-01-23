@@ -10,7 +10,7 @@ Features :
     - Evolution line  
 
 ### Deployed version :
-fadhil-pokedex.vercel.app
+https://fadhil-pokedex.vercel.app/
 
 Open for suggestions and pull requests. Thank you !
 
