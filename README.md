@@ -2,6 +2,8 @@
 
 ## Built with React, Styled Components and Zustand state management 
 
+This is built for a takehome test for company I applied.
+
 ### Deployed version :
 https://fadhil-pokedex.vercel.app/
 
