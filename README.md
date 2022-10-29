@@ -4,7 +4,7 @@
 
 This is built for a takehome test for company I applied.
 
-### Deployed version :
+### Deployed on Vercel :
 https://fadhil-pokedex.vercel.app/
 
 Features : 
@@ -14,6 +14,7 @@ Features :
     - Base stats
     - Evolution line  
 - Bookmark favorite pokemons
+- Downloadable on desktop and Android (PWA)
 
 Open for suggestions and pull requests. Thank you !
 
