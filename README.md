@@ -2,7 +2,7 @@
 
 ## Built with React, Styled Components and Zustand state management 
 
-This is built for a takehome test for company I applied.
+This is made for a takehome test for company I applied.
 
 ### Deployed on Vercel :
 https://fadhil-pokedex.vercel.app/
